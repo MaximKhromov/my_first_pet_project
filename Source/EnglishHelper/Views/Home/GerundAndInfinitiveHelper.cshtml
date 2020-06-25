@@ -12,8 +12,8 @@
             Введите глагол.<br/>
             @using (Html.BeginForm("GerundAndInfinitiveHelper", "Home", FormMethod.Post))
             {
-                @Html.TextBoxFor(model => model.Word)
-                @Html.ValidationMessageFor(model => model.Word)
+                @Html.TextBoxFor(model => model.Word) <br>
+                @Html.ValidationMessageFor(model => model.Word) <br><br>
                 <button type="submit">Поиск</button>
             }
         </p>
