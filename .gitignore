@@ -1,6 +1,6 @@
 ﻿/.vs/*
-/EnglishHelper/.vs/**/*
-/EnglishHelper/Source/.vs/**/*
+/.vs/**/*
+/Source/.vs/**/*
 [Oo]bj
-/EnglishHelper/Libs/packages/**/*
-/EnglishHelper/Source/EnglishHelper/bin
+/Libs/packages/**/*
+/Source/EnglishHelper/bin/**/*
