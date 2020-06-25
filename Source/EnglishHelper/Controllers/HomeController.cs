@@ -3,10 +3,9 @@
     using System.Configuration;
 
     using EnglishHelper.Models.DynamicDictionary.WordsExtractor;
-    using System.Web.Mvc;
-
     using EnglishHelper.Models.GerundAndInfinitive.Model;
-    using EnglishHelper.Models.GerundAndInfinitive.VerbExtractor;
+    using EnglishHelper.Models.GerundAndInfinitive.VerbsExtractor;
+    using System.Web.Mvc;
 
     /// <summary>
     /// Основной контроллер.
@@ -19,23 +18,23 @@
         private readonly IWordsExtractor _wordsExtractor = new WordsExtractor();
 
         /// <summary>
-        /// <see cref="VerbsExtractor"/>
+        /// <see cref="VerbsExtractor"/>.
         /// </summary>
-        private readonly IVerbExtractor _verbExtractor;
+        private readonly IVerbsExtractor _verbsExtractor;
 
         /// <summary>
-        /// Инициализирует новый экземпляр <see cref="HomeController"/>
+        /// Инициализирует новый экземпляр <see cref="HomeController"/>.
         /// </summary>
         public HomeController()
         {
             var connectionString = ConfigurationManager.ConnectionStrings["database"].ConnectionString;
-            _verbExtractor=new VerbsExtractor(connectionString);
+            _verbsExtractor = new VerbsExtractor(connectionString);
         }
 
         /// <summary>
         /// Контролл домашней страницы.
         /// </summary>
-        /// <returns></returns>
+        /// <returns><see cref="ActionResult"/>.</returns>
         public ActionResult Index()
         {
             return View();
@@ -44,7 +43,7 @@
         /// <summary>
         /// Контролл динамического словаря.
         /// </summary>
-        /// <returns></returns>
+        /// <returns><see cref="ActionResult"/>.</returns>
         public ActionResult DynamicDictionary()
         {
             var words = _wordsExtractor.Extract();
@@ -52,18 +51,18 @@
         }
 
         /// <summary>
-        /// Контролл глагольного помощника.
+        /// Контролл глагольного помошника.
         /// </summary>
-        /// <param name="viewData">Сведения, полученные из отображения</param>
-        /// <returns></returns>
-        //[HttpPost] //атрибут
-        public ActionResult GerundAndInfinitiveHelper(GerundAndInfinitiveModel viewData)
+        /// <param name="viewData">Сведения, полученные из отображения.</param>
+        /// <returns><see cref="ActionResult"/>.</returns>
+        // [HttpPost]
+        public ActionResult GerundAndInfinitiveHelper(GerundAndInfinitiveIModel viewData)
         {
             if (string.IsNullOrWhiteSpace(viewData.Word))
-                return View(new GerundAndInfinitiveModel { OutputData = null });
+                return View(new GerundAndInfinitiveIModel { OutputData = null });
 
-            var item = _verbExtractor.Extract(viewData.Word);
-            return View(new GerundAndInfinitiveModel {OutputData = item});
+            var item = _verbsExtractor.Extract(viewData.Word);
+            return View(new GerundAndInfinitiveIModel { OutputData = item });
         }
     }
 }
