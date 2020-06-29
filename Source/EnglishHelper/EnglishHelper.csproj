@@ -158,11 +158,11 @@
     <Compile Include="Models\DynamicDictionary\DyctionaryItem.cs" />
     <Compile Include="Models\DynamicDictionary\WordsExtractor\IWordsExtractor.cs" />
     <Compile Include="Models\DynamicDictionary\WordsExtractor\WordsExtractor.cs" />
-    <Compile Include="Models\GerundAndInfinitive\Model\Verb.cs" />
     <Compile Include="Models\GerundAndInfinitive\Model\GerundAndInfinitiveItem.cs" />
-    <Compile Include="Models\GerundAndInfinitive\Model\GerundAndInfinitiveModel.cs" />
-    <Compile Include="Models\GerundAndInfinitive\VerbExtractor\VerbExtractor.cs" />
-    <Compile Include="Models\GerundAndInfinitive\VerbExtractor\IVerbExtractor.cs" />
+    <Compile Include="Models\GerundAndInfinitive\Model\GerundAndInfinitiveIModel.cs" />
+    <Compile Include="Models\GerundAndInfinitive\Model\VerbForms.cs" />
+    <Compile Include="Models\GerundAndInfinitive\VerbsExtractor\IVerbsExtractor.cs" />
+    <Compile Include="Models\GerundAndInfinitive\VerbsExtractor\VerbsExtractor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

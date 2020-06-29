@@ -1,0 +1,41 @@
+﻿@using EnglishHelper.Models.GerundAndInfinitive.Model;
+@model GerundAndInfinitiveIModel
+
+@{
+    ViewBag.Title = "GerundAndInfinitiveHelper";
+}
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Глагол из словаря</h2>
+        <p>
+            Введите глагол.<br/>
+            @using (Html.BeginForm("GerundAndInfinitiveHelper", "Home", FormMethod.Post))
+            {
+                @Html.TextBoxFor(model => model.Word) <br>
+                @Html.ValidationMessageFor(model => model.Word) <br><br>
+                <button type="submit">Поиск</button>
+            }
+        </p>
+            <div>  
+                @{
+                    if (Model.OutputData != null)
+                    {
+                        string verb = Model.OutputData.Verb;
+                        string translate = Model.OutputData.Translate;
+                        string form = Model.OutputData.VerbForm.ToString();
+                        string example = Model.OutputData.Example;
+                        string explanation = Model.OutputData.Explanation;
+
+                        <p>
+                            Глагол: @verb <br>
+                            Перевод: @translate <br>
+                            Используемая форма: @form <br>
+                            Пример: @example <br>
+                            Объяснение: @explanation
+                        </p> 
+                    }
+                }
+            </div>  
+    </div>
+</div>
