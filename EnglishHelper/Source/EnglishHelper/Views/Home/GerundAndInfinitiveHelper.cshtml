@@ -10,7 +10,7 @@
         <h2>Глагол из словаря</h2>
         <p>
             Введите глагол.<br/>
-            @using (Html.BeginForm("GerundAndInfinitiveHelper", "Home", FormMethod.Post))
+            @using (Html.BeginForm("GerundAndInfinitiveHelper", "Home", FormMethod.Post)) // используем хелперы MVC framework
             {
                 @Html.TextBoxFor(model => model.Word)
                 @Html.ValidationMessageFor(model => model.Word)
@@ -23,17 +23,23 @@
                 {
                     string verb = Model.OutputData.Verb;
                     string translate = Model.OutputData.Translate;
-                    string form = Model.OutputData.Verb.ToString();
+                    string form = Model.OutputData.VerbForms.ToString();
                     string example = Model.OutputData.Example;
                     string explanation = Model.OutputData.Explanation;
-
-                    <p>
-                        Глагол: @verb <br>
-                        Перевод: @translate <br>
-                        Используемая форма: @form <br>
-                        Пример: @example <br>
-                        Объяснение: @explanation
-                    </p> 
+                    if (verb != null)
+                    {
+                        <p>
+                            Глагол: @verb <br>
+                            Перевод: @translate <br>
+                            Используемая форма: @form <br>
+                            Пример: @example <br>
+                            Объяснение: @explanation
+                        </p> 
+                    }
+                    else 
+                    {
+                        <p>Слово не найдено!</p>
+                    }
                 }
             }
         </div>  

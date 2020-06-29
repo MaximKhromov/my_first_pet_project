@@ -9,35 +9,34 @@
     /// <summary>
     /// Экстрактор глагололов для помошника.
     /// </summary>
-    public class VerbsExtractor : IVerbExtractor, IDisposable
+    public class VerbsExtractor : IVerbExtractor, IDisposable // создаем класс, реализующий интрефейсы IVerbExtractor и IDisposable
     {
         /// <summary>
         /// <see cref="NpgsqlConnection"/>.
         /// </summary>
-        private readonly NpgsqlConnection _connection;
+        private readonly NpgsqlConnection _connection; // класс, представляющий подключение к серверу БД
 
         /// <summary>
         /// Инициализирует новый экземпляр 
         /// </summary>
         /// <param name="connectionString">Строка подключения.</param>
-        public VerbsExtractor(string connectionString)
+        public VerbsExtractor(string connectionString) // конструктор
         {
             _connection = new NpgsqlConnection(connectionString);
         }
 
         /// <inheritdoc />
-        public void Dispose()
+        public void Dispose() //метод 
         {
             _connection.Dispose();
         }
 
-        /// <inheritdoc />
-        public GerundAndInfinitiveItem Extract(string word)
+        public GerundAndInfinitiveItem Extract(string word) // метод, возвращающий
         {
             if (string.IsNullOrWhiteSpace(word))
                 throw new ArgumentNullException(nameof(word), "Слово не может быть пустой строкой!");
 
-            var item = new GerundAndInfinitiveItem();
+            var item = new GerundAndInfinitiveItem(); // ?
             var explanationId = -1;
 
             _connection.Open();
@@ -58,8 +57,8 @@
                     reader.Dispose();
                 }
 
-                if (explanationId == -1)
-                    throw new SqlNullValueException($"Не удалось получить объяснения для случаев применения слова {word}");
+                //if (explanationId == -1)
+                    //throw new SqlNullValueException($"Не удалось получить объяснения для случаев применения слова {word}");
 
                 using (var command = new NpgsqlCommand($"SELECT * FROM explanations WHERE explanation_id = '{explanationId}'", _connection))
                 {

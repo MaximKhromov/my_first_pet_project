@@ -1,4 +1,7 @@
-﻿namespace EnglishHelper.Models.GerundAndInfinitive.VerbExtractor
+﻿// Интерфейс представляет ссылочный тип, который может определять некоторый функционал - набор методов и свойств без реализации.
+// Затем этот функционал реализуют классы и структуры, которые применяют данные интерфейсы.
+
+namespace EnglishHelper.Models.GerundAndInfinitive.VerbExtractor
 {
     using EnglishHelper.Models.GerundAndInfinitive.Model;
 

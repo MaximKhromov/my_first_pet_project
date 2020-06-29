@@ -1,4 +1,6 @@
-﻿namespace EnglishHelper.Controllers
+﻿// Контроллер является центральным компонентом в архитектуре MVC. Контроллер получает ввод пользователя, обрабатывает его и посылает обратно результат обработки, например, в виде представления.
+
+namespace EnglishHelper.Controllers
 {
     using System.Configuration;
 
@@ -21,15 +23,15 @@
         /// <summary>
         /// <see cref="VerbsExtractor"/>
         /// </summary>
-        private readonly IVerbExtractor _verbExtractor;
+        private readonly IVerbExtractor _verbExtractor; // видимо, так используется интерфейс 
 
         /// <summary>
         /// Инициализирует новый экземпляр <see cref="HomeController"/>
         /// </summary>
         public HomeController()
         {
-            var connectionString = ConfigurationManager.ConnectionStrings["database"].ConnectionString;
-            _verbExtractor=new VerbsExtractor(connectionString);
+            var connectionString = ConfigurationManager.ConnectionStrings["database"].ConnectionString; // получаем строку подключения
+            _verbExtractor=new VerbsExtractor(connectionString); // экземпляр класса?
         }
 
         /// <summary>

@@ -3,14 +3,14 @@
     using System.ComponentModel.DataAnnotations;
 
     /// <summary>
-    /// плоский класс с входным глаголом
+    /// класс с получением входного глагола и данных для отображения
     /// </summary>
     public class GerundAndInfinitiveModel
     {
         /// <summary>
         /// Получает или задет слово, введенное юзером в веб форму
         /// </summary>
-        [Required (ErrorMessage = "Строка не должна быть пустой.")]
+        
         public string Word { get; set; }
 
 
