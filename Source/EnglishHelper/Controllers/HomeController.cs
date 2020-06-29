@@ -22,7 +22,7 @@ namespace EnglishHelper.Controllers
         /// <summary>
         /// <see cref="VerbsExtractor"/>.
         /// </summary>
-        private readonly IVerbExtractor _verbExtractor; // видимо, так используется интерфейс 
+        private readonly IVerbsExtractor _verbsExtractor; // видимо, так используется интерфейс 
 
         /// <summary>
         /// Инициализирует новый экземпляр <see cref="HomeController"/>.
@@ -30,7 +30,7 @@ namespace EnglishHelper.Controllers
         public HomeController()
         {
             var connectionString = ConfigurationManager.ConnectionStrings["database"].ConnectionString; // получаем строку подключения
-            _verbExtractor=new VerbsExtractor(connectionString); // экземпляр класса?
+            _verbsExtractor=new VerbsExtractor(connectionString); // экземпляр класса?
         }
 
         /// <summary>
@@ -58,13 +58,13 @@ namespace EnglishHelper.Controllers
         /// <param name="viewData">Сведения, полученные из отображения.</param>
         /// <returns><see cref="ActionResult"/>.</returns>
         // [HttpPost]
-        public ActionResult GerundAndInfinitiveHelper(GerundAndInfinitiveIModel viewData)
+        public ActionResult GerundAndInfinitiveHelper(GerundAndInfinitiveModel viewData)
         {
             if (string.IsNullOrWhiteSpace(viewData.Word))
-                return View(new GerundAndInfinitiveIModel { OutputData = null });
+                return View(new GerundAndInfinitiveModel { OutputData = null });
 
             var item = _verbsExtractor.Extract(viewData.Word);
-            return View(new GerundAndInfinitiveIModel { OutputData = item });
+            return View(new GerundAndInfinitiveModel { OutputData = item });
         }
     }
 }

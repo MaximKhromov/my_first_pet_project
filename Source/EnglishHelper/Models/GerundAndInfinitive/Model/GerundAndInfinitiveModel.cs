@@ -3,19 +3,18 @@
     using System.ComponentModel.DataAnnotations;
 
     /// <summary>
-    /// класс с получением входного глагола и данных для отображения
+    /// Модель для отображения страницы.
     /// </summary>
     public class GerundAndInfinitiveModel
     {
         /// <summary>
-        /// Получает или задет слово, введенное юзером в веб форму
+        /// Получает или задает слово, введенное пользователем в web форму.
         /// </summary>
-        
+        [Required (ErrorMessage = "Строка не должна быть пустой.")]
         public string Word { get; set; }
 
-
         /// <summary>
-        /// Получает или задет выходные данные для отображения
+        /// Получает или ззадает выходные данные для отображени.
         /// </summary>
         public GerundAndInfinitiveItem OutputData { get; set; }
     }
