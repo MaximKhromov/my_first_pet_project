@@ -1,5 +1,5 @@
 ﻿@using EnglishHelper.Models.GerundAndInfinitive.Model;
-@model GerundAndInfinitiveIModel
+@model GerundAndInfinitiveModel
 
 @{
     ViewBag.Title = "GerundAndInfinitiveHelper";
@@ -10,23 +10,24 @@
         <h2>Глагол из словаря</h2>
         <p>
             Введите глагол.<br/>
-            @using (Html.BeginForm("GerundAndInfinitiveHelper", "Home", FormMethod.Post))
+            @using (Html.BeginForm("GerundAndInfinitiveHelper", "Home", FormMethod.Post)) // используем хелперы MVC framework
             {
-                @Html.TextBoxFor(model => model.Word) <br>
-                @Html.ValidationMessageFor(model => model.Word) <br><br>
+                @Html.TextBoxFor(model => model.Word)
+                @Html.ValidationMessageFor(model => model.Word)
                 <button type="submit">Поиск</button>
             }
         </p>
-            <div>  
-                @{
-                    if (Model.OutputData != null)
+        <div>  
+            @{
+                if (Model.OutputData != null)
+                {
+                    string verb = Model.OutputData.Verb;
+                    string translate = Model.OutputData.Translate;
+                    string form = Model.OutputData.VerbForms.ToString();
+                    string example = Model.OutputData.Example;
+                    string explanation = Model.OutputData.Explanation;
+                    if (verb != null)
                     {
-                        string verb = Model.OutputData.Verb;
-                        string translate = Model.OutputData.Translate;
-                        string form = Model.OutputData.VerbForm.ToString();
-                        string example = Model.OutputData.Example;
-                        string explanation = Model.OutputData.Explanation;
-
                         <p>
                             Глагол: @verb <br>
                             Перевод: @translate <br>
@@ -35,7 +36,12 @@
                             Объяснение: @explanation
                         </p> 
                     }
+                    else 
+                    {
+                        <p>Слово не найдено!</p>
+                    }
                 }
-            </div>  
+            }
+        </div>  
     </div>
 </div>
