@@ -155,7 +155,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\DynamicDictionary\DyctionaryItem.cs" />
+    <Compile Include="Models\DynamicDictionary\DictionaryData.cs" />
+    <Compile Include="Models\DynamicDictionary\DictionaryItem.cs" />
     <Compile Include="Models\DynamicDictionary\WordsExtractor\IWordsExtractor.cs" />
     <Compile Include="Models\DynamicDictionary\WordsExtractor\WordsExtractor.cs" />
     <Compile Include="Models\GerundAndInfinitive\Model\GerundAndInfinitiveItem.cs" />

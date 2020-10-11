@@ -12,6 +12,16 @@
     public class VerbsExtractor : IVerbsExtractor, IDisposable
     {
         /// <summary>
+        /// Имя базы данных, где хранятся глаголы, для которых нужно определить формы смыслового глагола.
+        /// </summary>
+        private const string InfinitiveAndGerundDb = @"infinitive_or_gerund";
+
+        /// <summary>
+        /// Имя базы данных, где хранятся пояснения.
+        /// </summary>
+        private const string ExplanationsDb = @"explanations";
+
+        /// <summary>
         /// <see cref="NpgsqlConnection"/>.
         /// </summary>
         private readonly NpgsqlConnection _connection;
@@ -43,7 +53,7 @@
             _connection.Open();
             try
             {
-                using (var command = new NpgsqlCommand($"SELECT * FROM infinitive_or_gerund WHERE verb = '{word}'", _connection))
+                using (var command = new NpgsqlCommand($"SELECT * FROM {InfinitiveAndGerundDb} WHERE Lower(verb) = '{word.ToLower()}'", _connection))
                 {
                     var reader = command.ExecuteReader();
                     if (reader.Read())
@@ -61,7 +71,7 @@
                 if (explanationId == -1)
                     throw new SqlNullValueException($"Не удалось получить объяснения для случаев применения слова {word}");
 
-                using (var command = new NpgsqlCommand($"SELECT * FROM explanations WHERE explanation_id = '{explanationId}'", _connection))
+                using (var command = new NpgsqlCommand($"SELECT * FROM {ExplanationsDb} WHERE explanation_id = '{explanationId}'", _connection))
                 {
                     var reader = command.ExecuteReader();
                     if (reader.Read())

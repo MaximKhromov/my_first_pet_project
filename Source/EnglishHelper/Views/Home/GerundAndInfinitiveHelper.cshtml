@@ -2,18 +2,21 @@
 @model GerundAndInfinitiveModel
 
 @{
-    ViewBag.Title = "GerundAndInfinitiveHelper";
+    ViewBag.Title = "Глагольный помощник";
 }
 
 <div class="row">
     <div class="col-md-4">
         <h2>Глагол из словаря</h2>
         <p>
-            Введите глагол.<br/>
-            @using (Html.BeginForm("GerundAndInfinitiveHelper", "Home", FormMethod.Post)) // используем хелперы MVC framework
+            Введите глагол.<br />
+            @using (Html.BeginForm("GerundAndInfinitiveHelper", "Home", FormMethod.Post))
             {
                 @Html.TextBoxFor(model => model.Word)
+                <br />
                 @Html.ValidationMessageFor(model => model.Word)
+                <br />
+                <br />
                 <button type="submit">Поиск</button>
             }
         </p>
@@ -21,11 +24,11 @@
             @{
                 if (Model.OutputData != null)
                 {
-                    string verb = Model.OutputData.Verb;
-                    string translate = Model.OutputData.Translate;
-                    string form = Model.OutputData.VerbForm.ToString();
-                    string example = Model.OutputData.Example;
-                    string explanation = Model.OutputData.Explanation;
+                    var verb = Model.OutputData.Verb;
+                    var translate = Model.OutputData.Translate;
+                    var form = Model.OutputData.VerbForm.ToString();
+                    var example = Model.OutputData.Example;
+                    var explanation = Model.OutputData.Explanation;
                     if (verb != null)
                     {
                         <p>

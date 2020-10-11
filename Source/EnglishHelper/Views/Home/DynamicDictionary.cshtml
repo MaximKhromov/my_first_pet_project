@@ -1,26 +1,131 @@
-﻿@model IEnumerable<EnglishHelper.Models.DynamicDictionary.DyctionaryItem>
+﻿@model EnglishHelper.Models.DynamicDictionary.DictionaryData
 
 @{
-    ViewBag.Title = "DynamicDictionary";
+    ViewBag.Title = "Динамический словарь";
 }
+<style type="text/css">
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    #container {
+        height: 100%;
+        width: 100%;
+        font-size: 0;
+    }
+
+    #left, #right {
+        display: inline-block;
+        *display: inline;
+        zoom: 1;
+        vertical-align: top;
+        font-size: 14px;
+        column-gap: 20rem;
+    }
+
+    #left {
+        width: 50%;
+        background: white;
+        alignment: left
+    }
+
+    #right {
+        width: 50%;
+        background: white;
+        alignment: right;
+    }
+</style>
 
 <div class="row">
     <div class="col-md-4">
         <h2>Слова из словаря</h2>
+        <div id="container">
+            <div id="left" class="col-md-10">
+                <form name="RadioButtonsForm" method="post">
+                    <input id ="SearchingByWordId" name="SearchingType" value="ByWord" type="radio" onclick="ShowSearchingByWord()"  @(Model.SearchingByWord ? @"checked=""checked""" : string.Empty)  /> Поиск по слову<br />
+                    <input id ="SearchingByTagsId" name="SearchingType" value="ByTags" type="radio" onclick="ShowSearchingByTags()" @(Model.SearchingByWord ? string.Empty : @"checked=""checked""") /> Поиск по тегам<br />
+                </form>
+            </div>
+            <div id="right">
+                <div id="SearchingByWordDiv">
+                    @using (Html.BeginForm("DynamicDictionary", "Home", FormMethod.Post))
+                    {
+                        @Html.TextBoxFor(model => model.SearchingWord)
+                        <br/>
+                        @Html.ValidationMessageFor(model => model.SearchingWord)
+                        <br/>
+                        <button type="submit">Поиск</button>
+                    }
+                </div>
+                <div id="SearchingByTagsDiv">
+                    <form method="post" id="SearchingByTagsForm">
+                        @foreach (var tag in Model.AllTags)
+                        {
+                            <input name="SelectedTags" type="checkbox" value="@tag"/>
+                            @tag<br/>
+                        }
+
+                        <br/>
+                        <button type="submit">Поиск</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
         <p>
-            Набор слов, которые мы извлекли из словаря.
-        </p>
-        <p>
-            @{ var grid = new WebGrid(Model, canPage: false);}  
-            <div>  
-  
-                @grid.GetHtml(tableStyle: "table table-bordered table-responsive table-hover",  
-                    columns: grid.Columns(  
+            @{ var grid = new WebGrid(Model.Items, canPage: false);}
+            @if (Model.Items.Any())
+            {
+            <p>
+                Набор слов, которые мы извлекли из словаря.
+            </p>
+            <div>
+
+                @grid.GetHtml(
+                    tableStyle: "table table-bordered table-responsive table-hover",
+                    columns: grid.Columns(
                         grid.Column("Word", "Слово"),
-                        grid.Column("Translate", "Перевод") 
-                        )  
-                    )  
-            </div>  
-        </p>
+                        grid.Column("Translate", "Перевод"),
+                        grid.Column("Transcription", "Транскрипция")))
+            </div>
+        }
+        else
+        {
+            <p>
+                @Model.ErrorMessage
+            </p>
+        }
+            </p>
+        </div>
     </div>
-</div>
+
+<script type="text/javascript">
+    window.onload = function () {
+        var wordElement = document.getElementById("SearchingByWordId");
+        if (wordElement.checked)
+            ShowSearchingByWord();
+
+        var tagsElement = document.getElementById("SearchingByTagsId");
+        if (tagsElement.checked)
+            ShowSearchingByTags();
+    };
+
+    function ShowSearchingByTags() {
+        var searchingByTagsForm = document.getElementById("SearchingByTagsDiv");
+        var searchingByWordParagraph = document.getElementById("SearchingByWordDiv");
+
+        searchingByTagsForm.style.display = "block";
+        searchingByWordParagraph.style.display = "none";
+
+    }
+
+    function ShowSearchingByWord() {
+        var searchingByTagsForm = document.getElementById("SearchingByTagsDiv");
+        var searchingByWordParagraph = document.getElementById("SearchingByWordDiv");
+
+        searchingByTagsForm.style.display = "none";
+        searchingByWordParagraph.style.display = "block";
+    }
+
+</script>
